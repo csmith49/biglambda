@@ -1,0 +1,16 @@
+<data input="Database" output="[Item]">
+    <weight name="KEY" val=10>
+    <weight name="VALUE" val=10>
+    <weight name="m" val=0.01>
+    <weight name="filt" val=10>
+    <example>
+        <input>
+            ("DB1", [("K0", "V0"), ("K1", "V0")])
+            ("DB2", [("K0", "V1"), ("K1", "V1")])
+        </input>
+        <output>
+            ("K0", "V0")
+            ("K0", "V1")
+        </output>
+    </example>
+</data>

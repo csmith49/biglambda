@@ -1,0 +1,21 @@
+<data input="String" output="[String]">
+    <norm name="append" tag="assoc">
+    <weight name="extract" val=100>
+    <example>
+        <input>
+            "There will be a meeting at DATE01, and maybe DATE02"
+            "Testing having 00DATE03 - not super rigorous"
+        </input>
+        <output>
+            "t DATE"
+            " DATE0"
+            "DATE01"
+            "e DATE"
+            " DATE0"
+            "DATE02"
+            "00DATE"
+            "0DATE0"
+            "DATE03"
+        </output>
+    </example>
+</data>

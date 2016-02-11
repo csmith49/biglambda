@@ -1,0 +1,16 @@
+<data input="Int" output="Int">
+    <norm name="add" tag="ac">
+    <norm name="fadd" tag="ac">
+    <example>
+        <input delim=","> 1, 2, 3 </input>
+        <output val=36 />
+    </example>
+    <example>
+        <input delim=","> 0, 2 </input>
+        <output val=4 />
+    </example>
+    <example>
+        <input delim=","> 7, 0, 5 </input>
+        <output val=144 />
+    </example>
+</data>

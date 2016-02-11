@@ -1,0 +1,27 @@
+<data input="String" output="Int" key="String">
+    <norm name="add" tag="ac">
+    <norm name="lower" tag="idem">
+    <weight name="lower" val=10>
+    <example>
+        <input delim=","> "Aaa", "bb", "c" </input>
+        <output>
+            ("a", 3)
+            ("b", 2)
+            ("c", 1)
+        </output>
+    </example>
+    <example>
+        <input delim=","> "Banana", "Apple", "Tomato" </input>
+        <output>
+            ("a", 5)
+            ("b", 1)
+            ("e", 1)
+            ("n", 2)
+            ("p", 2)
+            ("l", 1)
+            ("t", 2)
+            ("o", 2)
+            ("m", 1)
+        </output>
+    </example>
+</data>

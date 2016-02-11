@@ -1,0 +1,26 @@
+<data input="String" output="Int" key="Tag">
+    <norm name="plus" tag="ac">
+    <example>
+        <input delim=","> "This is a test", "fluffy cat play" </input>
+        <output>
+            ("Huh?", 4)
+            ("Adjective", 1)
+            ("Noun", 1)
+            ("Verb", 1)
+        </output>
+    </example>
+    <example>
+        <input>
+            "cat"
+            "dog"
+            "loud human sleep"
+            "this is a fluffy dog"
+        </input>
+        <output>
+            ("Huh?", 3)
+            ("Noun", 4)
+            ("Adjective", 2)
+            ("Verb", 1)
+        </output>
+    </example>
+</data>

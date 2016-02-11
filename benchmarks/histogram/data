@@ -1,0 +1,20 @@
+<data input="Float" output="Int" key="Sign">
+    <norm name="plus" tag="ac">
+    <norm name="fplus" tag="ac">
+    <example>
+        <input delim=","> 0.0, 0.1, -0.1 </input>
+        <output>
+            ("+", 1)
+            ("-", 1)
+            ("?", 1)
+        </output>
+    </example>
+    <example>
+        <input delim=","> 45.2, -2.1, 0.0, 0.0, 0.0, -652.91 </input>
+        <output>
+            ("+", 1)
+            ("-", 2)
+            ("?", 3)
+        </output>
+    </example>
+</data>

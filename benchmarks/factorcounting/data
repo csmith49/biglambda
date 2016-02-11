@@ -1,0 +1,21 @@
+<data input="Int" output="Int" key="Int">
+    <norm name="plus" tag="ac">
+    <weight name="factor" val=10>
+    <weight name="emit" val=0.01>
+    <example>
+        <input delim=","> 2, 3, 4 </input>
+        <output>
+            (2, 2)
+            (3, 1)
+        </output>
+    </example>
+    <example>
+        <input delim=","> 5, 55, 7, 25, 16 </input>
+        <output>
+            (2, 1)
+            (5, 3)
+            (7, 1)
+            (11, 1)
+        </output>
+    </example>
+</data>

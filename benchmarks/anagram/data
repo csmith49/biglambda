@@ -1,0 +1,13 @@
+<data input="String" output="[String]" key="String">
+    <norm name="append" tag="assoc">
+    <weight name="emit" val=0.001>
+    <weight name="sort_word" val=2>
+    <weight name="to_chars" val=0.1>
+    <example>
+        <input delim=","> "banana aaabnn test", "estt ananab" </input>
+        <output>
+            ("aaabnn", ["banana", "aaabnn", "ananab"])
+            ("estt", ["test", "estt"])
+        </output>
+    </example>
+</data>

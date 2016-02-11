@@ -1,0 +1,13 @@
+<data input="String" output="Int" key="String">
+    <norm name="plus" tag="ac">
+    <example>
+        <input>
+            "what WHAT the what the what"
+        </input>
+        <output>
+            ("WHAT", 1)
+            ("the", 2)
+            ("what", 3)
+        </output>
+    </example>
+</data>

@@ -1,0 +1,15 @@
+<data input="Database" output="[Item]">
+    <example>
+        <input>
+            ("DB1", [("Key0", "data"), ("Key1", "data"), ("Key2", "new_data")])
+            ("DB2", [("Key3", "some_data"), ("Key2", "old_data")])
+        </input>
+        <output>
+            ("Key0", "data")
+            ("Key1", "data")
+            ("Key2", "new_data")
+            ("Key3", "some_data")
+            ("Key2", "old_data")
+        </output>
+    </example>
+</data>

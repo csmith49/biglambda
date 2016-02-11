@@ -1,0 +1,13 @@
+<data input="(String, [Row])" key="String" output="[String]">
+    <example>
+        <input>
+            ("File01", [("KEY0", "data"), ("KEY0", "other_data"), ("KEY1", "stuff")])
+            ("File02", [("KEY0", "daaa"), ("KEY3", "more stuff")])
+        </input>
+        <output>
+            ("KEY0", ["File01", "File01", "File02"])
+            ("KEY1", ["File01"])
+            ("KEY3", ["File02"])
+        </output>
+    </example>
+</data>

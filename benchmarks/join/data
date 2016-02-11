@@ -1,0 +1,18 @@
+<data input="Database" key="String" output="[Item]">
+    <weight name="access" val=10>
+    <weight name="filt" val=0.01>
+    <weight name="concat_db" val=0.01>
+    <weight name="VALUE" val=0.01>
+    <example>
+        <input>
+            ("DB0", [("K0", "V0"), ("K2", "V2")])
+            ("DB1", [("K1", "V3")])
+            ("DB2", [("K1", "V4")])
+        </input>
+        <output>
+            ("K0", [("K0", "V0")])
+            ("K1", [("K1", "V3"), ("K1", "V4")])
+            ("K2", [("K2", "V2")])
+        </output>
+    </example>
+</data>
