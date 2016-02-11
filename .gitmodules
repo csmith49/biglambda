@@ -1,0 +1,3 @@
+[submodule "dinner"]
+	path = dinner
+	url = https://github.com/csmith49/dinner.git
