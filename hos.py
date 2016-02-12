@@ -1,4 +1,5 @@
 import itertools
+from takethree import e
 from functools import reduce
 
 def uncurry(func):
@@ -30,7 +31,8 @@ class FilledSketch(object):
     def __call__(self, li, writer):
         return self._execute(li, writer)
     def __repr__(self):
-        output = "filled sketch: {n}\n    mapper: {m}\n    reducer: {r}\n    flags: {f}"
+        # output = "filled sketch: {n}\n    mapper: {m}\n    reducer: {r}\n    flags: {f}"
+        output = "{m}:{r}:{f}"
         return output.format(n='test', 
                 m=repr(self._m), 
                 r=repr(self._r), 
@@ -74,6 +76,10 @@ class FilledSketch(object):
             else:
                 old_value = reduced
         return True
+    def size(self):
+        out = len(e.linearize(self._m)) + len(e.linearize(self._r))
+        out = (out + len(e.linearize(self._a))) if self._a else out
+        return out + 2
 
 class Sketch(object):
     def __init__(self, types, flatten = False, applier = False):

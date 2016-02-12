@@ -1,0 +1,2 @@
+#!/bin/sh
+python3.4 multi_prog.py benchmarks/$1/sig.py benchmarks/$1/data -fs 1000000

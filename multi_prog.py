@@ -120,7 +120,5 @@ if __name__ == "__main__":
                 break
         else:
             done = True
-            print("FINAL FOUND:")
-            print(prog)
-            print("TOTAL EXPLORED:", counter)
-            takethree.reducer_check(prog._r, sig)
+            print("DINNER_STAT sol {}".format(repr(prog)))
+            print("DINNER_STAT size {}".format(prog.size()))
