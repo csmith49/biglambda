@@ -1,0 +1,28 @@
+<data input="String" key="String" output="Int">
+    <weight name="fst" val=0.0001>
+    <weight name="snd" val=0.0001>
+    <weight name="add" val=0.5>
+    <weight name="iscaps" val=10>
+    <weight name="issentiment" val=0.1>
+    <example>
+        <input>
+            "HELENA	What is your pleasure, madam?"
+            ""
+            "COUNTESS	You know, Helen,"
+            "	I am a mother to you."
+            ""
+            "HELENA	Mine honourable mistress."
+            ""
+            "COUNTESS	Nay, a mother:"
+            "	Why not a mother? When I said 'a mother,'"
+            "	Methought you saw a serpent: what's in 'mother,'"
+            "   That you start at it? I say, I am your mother;"
+            "COUNTESS   Or your father"
+        </input>
+        <output>
+            ("HELENA", 2)
+            ("COUNTESS", 3)
+        </output>
+    </example>
+</data>
+

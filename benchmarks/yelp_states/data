@@ -1,0 +1,14 @@
+<data input="Review" key="String" output="Int">
+    <example>
+        <input>
+            ("Madison", "WI", "eh", 4, {})
+            ("Granbury", "TX", "bad", 2, {'Good for Kids': True})
+            ("Madison", "WI", "great", 1, {'Good for Kids': False})
+            ("Dallas", "TX", "ew", 10, {})
+        </input>
+        <output>
+            ("WI", 5)
+            ("TX", 12)
+        </output>
+    </example>
+</data>

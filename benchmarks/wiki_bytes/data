@@ -1,0 +1,15 @@
+<data input="Log" key="String" output="Int">
+    <example>
+        <input>
+            ("sample", 1, 100)
+            ("sample", 3, 2000)
+            ("test", 4, 300)
+            ("key", 1, 2)
+        </input>
+        <output>
+            ("sample", 2100)
+            ("test", 300)
+            ("key", 2)
+        </output>
+    </example>
+</data>

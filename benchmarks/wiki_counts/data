@@ -1,0 +1,19 @@
+<data input="Wiki" key="String" output="Int">
+    <weight name="text" val=100>
+    <weight name="desired" val=100>
+    <weight name="split" val=100>
+    <weight name="fst" val=0.00001>
+    <weight name="snd" val=0.00001>
+    <weight name="emit" val=0.00001>
+    <example>
+        <input>
+            ("romeo", "love hate autism")
+            ("love", "hate cats")
+            ("juliet", "love cats love")
+        </input>
+        <output>
+            ("love", 3)
+            ("hate", 2)
+        </output>
+    </example>
+</data>

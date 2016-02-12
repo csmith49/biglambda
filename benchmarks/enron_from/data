@@ -1,0 +1,14 @@
+<data input="Email" key="String" output="Int">
+    <example>
+        <input>
+            "From: Me\nTo: You\nBody: Stuff goes here"
+            "From: You\n\To: Me\nBody: who reads this"
+            "From: You\nTo: You\nBody: why are you sending this?"
+            "From: You\nTo: Your Mom\nBody: heyyy"
+        </input>
+        <output>
+            ("Me", 1)
+            ("You", 3)
+        </output>
+    </example>
+</data>
