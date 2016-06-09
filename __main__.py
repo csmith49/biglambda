@@ -1,9 +1,7 @@
 import setup
 import heapq
 import takethree
-import hos
-import multiprocessing
-import multistructures
+import pc
 
 #------------------------------------------------------------------------------
 # primary algorithm, used as iterator
@@ -42,14 +40,14 @@ if __name__ == '__main__':
 	# construct producers from frontier search above
 	producer = lambda t: explore_frontier(signature, t, metric, setup.FRONTIER_SIZE, normalizer)
 	# create managers to hold all the producers/consumers
-	manager = multistructures.ProductionManager(producer)
+	manager = pc.ProductionManager(producer)
 	# consumers need to be able to execute the programs generated - make a writer
 	writer = takethree.CodeWriter(module)
 	# create all the consumers!
-	manager.create_consumer(hos.Sketch(data_types, False, False))
-	manager.create_consumer(hos.Sketch(data_types, True, False))
-	manager.create_consumer(hos.Sketch(data_types, False, True))
-	manager.create_consumer(hos.Sketch(data_types, True, True))
+	manager.create_consumer(pc.Sketch(data_types, False, False))
+	manager.create_consumer(pc.Sketch(data_types, True, False))
+	manager.create_consumer(pc.Sketch(data_types, False, True))
+	manager.create_consumer(pc.Sketch(data_types, True, True))
 	# start churning out those solutions!
 	q = manager.start_production()
 
