@@ -1,6 +1,6 @@
 import setup
 import heapq
-import takethree
+import producers
 import consumers
 
 #------------------------------------------------------------------------------
@@ -8,9 +8,9 @@ import consumers
 #------------------------------------------------------------------------------
 def explore_frontier(sig, data_type, metric, max_size, normalizer):
 	# closure for binding sig and rules easily
-	expand = takethree.generate_expander(sig, normalizer)
+	expand = producers.generate_expander(sig, normalizer)
 	# generate appropriate starting node based on type
-	start_node = takethree.e.Un(takethree.parse_type(data_type))
+	start_node = producers.e.Un(producers.parse_type(data_type))
 	frontier = [(metric(start_node), start_node)]
 	# go hog wild
 	while len(frontier) < max_size:
@@ -29,8 +29,8 @@ def explore_frontier(sig, data_type, metric, max_size, normalizer):
 # now we treat this module as a script - time to execute!
 #------------------------------------------------------------------------------
 if __name__ == '__main__':
-	signature, normalizer, module = takethree.generate_resources(setup.SIG_PATH, None)
-	*data_types, data, metric = takethree.parse_data(setup.DATA_PATH)
+	signature, normalizer, module = producers.generate_resources(setup.SIG_PATH, None)
+	*data_types, data, metric = producers.parse_data(setup.DATA_PATH)
 
 	if setup.VERBOSE_FLAG: print("Data loaded. Creating consumers and producers...")
 
@@ -42,7 +42,7 @@ if __name__ == '__main__':
 	# create managers to hold all the producers/consumers
 	manager = consumers.ProductionManager(producer)
 	# consumers need to be able to execute the programs generated - make a writer
-	writer = takethree.CodeWriter(module)
+	writer = producers.CodeWriter(module)
 	# create all the consumers!
 	manager.create_consumer(consumers.Sketch(data_types, False, False))
 	manager.create_consumer(consumers.Sketch(data_types, True, False))

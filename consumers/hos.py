@@ -1,5 +1,5 @@
 import itertools
-from takethree import e
+from producers import e
 from functools import reduce
 
 def uncurry(func):
