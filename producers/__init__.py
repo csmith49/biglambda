@@ -7,7 +7,6 @@ from .data import parse_data, parse_tags
 from .expansion import generate_expander
 from .easynorm import EasyNormalizer
 from .checker import reducer_check
-from .sketches import Sketch
 from itertools import chain
 from functools import reduce
 from collections import defaultdict
