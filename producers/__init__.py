@@ -5,7 +5,6 @@ from . import t
 from . import mr
 from .data import parse_data, parse_tags
 from .expansion import generate_expander
-from .easynorm import EasyNormalizer
 from .checker import reducer_check
 from itertools import chain
 from functools import reduce
