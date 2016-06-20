@@ -56,49 +56,39 @@ def get_delim(soup_node):
     except KeyError:
         return "\n"
 
-def parse_data(filename):
-    # parse the file as 'pseudo-html'
-    soup = BeautifulSoup(open(filename, 'r'), 'html.parser')
-    # pull out the input, output, and key
-    try:
-        input = soup.data.attrs['input']
-        output = soup.data.attrs['output']
-    except AttributeError:
-        raise ParseError("can't find input/output type")
+def parse_data_types(soup):
+    input = soup.data.attrs['input']
+    output = soup.data.attrs['output']
     try:
         key = soup.data.attrs['key']
     except KeyError:
         key = None
-    # pull out weights and construct a metric
-    weight_dict = {}
-    for n in soup.findAll('weight'):
-        weight_dict[n.attrs['name']] = float(n.attrs['val'])
+    return input, output, key
 
-    if key:
-        base_tup = (input, output, key)
-    else:
-        base_tup = (input, output)
-    metric = Metric(weight_dict, base_tup)
-    # pull out the data instances
+def parse_examples(soup):
     data = []
-    for n in soup.findAll('example'):
+    for n in soup.data.findAll('example'):
         n_input = list(map(eval, unescaped_split(n.input.string, get_delim(n.input))))
-        # sometimes we get single instances, other times we have lists of outputs
+        # sometimes get just one instance, other times we've got a list
         try:
             n_output = eval(n.output.attrs['val'])
         except KeyError:
             n_output = list(map(eval, unescaped_split(n.output.string, get_delim(n.output))))
         data.append( (n_input, n_output) )
-    # return a really big tuple
-    return input, output, key, data, metric
+    return data
 
-def parse_tags(filename):
-    # parse as pseudoxml
-    soup = BeautifulSoup(open(filename, 'r'), 'html.parser')
+def parse_metric(soup):
+    weights = {}
+    for n in soup.data.findAll('weight'):
+        weights[n.attrs['name']] = float(n.attrs['val'])
+    return Metric(weights)
 
-    tags = []
-
-    for t in soup.findAll('norm'):
-        tags.append( (t.attrs['tag'], t.attrs['name']) )
-
-    return tags
+def parse_normalizer(soup):
+    weights = {}
+    precedences = {}
+    for n in soup.trs.findAll('weight'):
+        weights[n.attrs['name']] = float(n.attrs['val'])
+    for n in soup.trs.findAll('precedence'):
+        precedences[n.attrs['name']] = float(n.attrs['val'])
+    rules = list(map(parse_term, unescaped_split(soup.trs.rules.string, get_delim(soup.trs.rules.output))))
+    equations = list(map(parse_term, unescaped_split(soup.trs.eqs.string, get_delim(soup.trs.eqs.output))))

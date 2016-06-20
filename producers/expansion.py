@@ -32,15 +32,7 @@ def generate_expander(signature, normalizer = None):
                 except t.UnifyError:
                     pass
             for i, var_type in bindings:
-                '''try:
-                    s = t.match(var_type, type)
-                    output.append( (e.Var(i, var_type), s) )
-                except t.UnifyError:
-                    try:
-                        s = t.match(type, var_type)
-                        output.append( (e.Var(i, var_type), s) )
-                    except t.UnifyError:
-                        pass'''
+
                 try:
                     s = t.unify(var_type, type)
                     output.append( (e.Var(i, var_type), s) )
