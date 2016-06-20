@@ -1,4 +1,3 @@
-from .e import linearize
 from .adt import Node
 
 #------------------------------------------------------------------------------
@@ -11,12 +10,19 @@ class Var(Pattern):
 		return super().__new__(cls, "var", value, ())
 	def __reduce__(self):
 		return Var, tuple(self.value)
+	def __repr__(self):
+		return repr(self.value)
 
 class Func(Pattern):
 	def __new__(cls, name, *args):
 		return super().__new__(cls, "func", name, tuple(args))
 	def __reduce__(self):
 		return Func, tuple([self.value + list(self.args)])
+	def __repr__(self):
+		if self.arity == 0:
+			return self.value
+		else:
+			return self.value + "(" + ", ".join(repr(c) for c in self.children) + ")"
 
 #------------------------------------------------------------------------------
 # we better be matching
@@ -85,6 +91,16 @@ class Rule(object):
 			return self._ordered_applies(expr)
 		else:
 			return self._applies(expr)
+	def root_applies(self, expr):
+		sub = match(expr, self.lhs)
+		if sub is not None:
+			return True
+		return False
+	def __repr__(self):
+		if self.order is not None:
+			return repr(self.lhs) + " == " + repr(self.rhs)
+		else:
+			return repr(self.lhs) + " -> " + repr(self.rhs)
 
 #------------------------------------------------------------------------------
 # storing information (and computing) the kbo
@@ -112,9 +128,12 @@ class Precedence(object):
 		if term[0] == "abs" or term[0] == "app":
 			return 0
 		else:
-			return self._precedences[term[1]]	
+			try:
+				return self._precedences[term[1]]
+			except KeyError:
+				return 0
 
-def gt_kbo(s, t, W, P):
+def gt_kbo(s, t, W=None, P=None):
 	# check variable counts! (not yet implemented)
 	if W(s) > W(t):
 		return True
@@ -149,10 +168,17 @@ def gt_kbo(s, t, W, P):
 # we can also construct normalizers!
 #------------------------------------------------------------------------------
 class Normalizer(object):
-	def __init__(self, sexpr):
-		pass
+	def __init__(self, rules, equations):
+		self.rules = rules
+		self.equations = equations
 	def __call__(self, expr):
-		for rule in self.rules:
-			if rule.applies(expr):
-				return True
-		return False
+		worklist = [expr]
+		while worklist:
+			e = worklist.pop()
+			for rule in self.rules:
+				if rule.root_applies(e):
+					return False
+			worklist += e.children
+		return True
+	def __repr__(self):
+		return "Normalizer: " + repr(self.rules)

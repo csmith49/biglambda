@@ -9,7 +9,6 @@ class Node(namedtuple("_Node", "kind value args")):
     def __new__(cls, kind, value, args):
         for arg in args:
             if not isinstance(arg, Node):
-                print(args)
                 raise TypeError
         self = super().__new__(cls, kind, value, tuple(args))
         return self

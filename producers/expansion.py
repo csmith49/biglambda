@@ -60,6 +60,6 @@ def generate_expander(signature, normalizer = None):
                 else:
                     output.append(e.fix_types(new_expr, e_sub))
             else:
-                print("NORMALIZED: " + str(new_expr))
+                pass
         return output
     return expand
