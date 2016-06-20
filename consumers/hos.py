@@ -116,30 +116,7 @@ class Sketch(object):
             m, r = e[0], e[1]
             a = e[2] if len(e) > 2 else None
             yield FilledSketch(m, r, a, self.flattened, self.keyed)
-
-def gen_requirements(types, flatten = False, applier = False):
-    f = flatten
-    a = applier
-    k = len(types) >= 3
-
-    i_t, o_t = types[0], types[1]
-    reqs = ["{input} -> {inter}", "{red} -> {red} -> {red}"]
-    mappings = {'input': i_t, 'output': o_t}
-
-    if a:
-        reqs.append("{final} -> {output}")
-        mappings['red'] = '1'
-    else:
-        mappings['red'] = o_t
-
-    if k:
-        mappings['inter'] = "({}, {})".format(types[2], mappings['red'])
-        mappings['final'] = "[({}, {})]".format(types[2], mappings['red'])
-    else:
-        mappings['inter'] = mappings['red']
-        mappings['final'] = mappings['red']
-    # now, check for flattening stuff
-    if f:
-        mappings['inter'] = "[{}]".format(mappings['inter'])
-    # now set requirements
-    return [(f, a, k)] + [s.format(**mappings) for s in reqs]
+    def __call__(self, *args):
+        m, r = args[0], args[1]
+        a = args[2] if len(args) > 2 else None
+        return FilledSketch(m, r, a, self.flattened, self.keyed)

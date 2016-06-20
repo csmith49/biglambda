@@ -1,2 +1,2 @@
 from .hos import Sketch
-from .multistructures import ProductionManager
+from .lazy import generate_search
