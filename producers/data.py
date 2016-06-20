@@ -99,7 +99,6 @@ def parse_normalizer(soup):
     order = partial(kbo.gt_kbo, W=W, P=P)
     # convert rules into rule objects
     rules = list(map(parse_term, unescaped_split(soup.trs.rules.string, get_delim(soup.trs.rules))))
-    print(rules)
     rules = list(map(lambda p: kbo.Rule(*p), rules))
     # convert equations into eq objects
 #    equations = list(map(parse_term, unescaped_split(soup.trs.eqs.string, get_delim(soup.trs.eqs.output))))

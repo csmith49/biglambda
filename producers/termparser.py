@@ -34,7 +34,6 @@ def p_term(p):
 	if len(p) is 2:
 		p[0] = p[1]
 	else:
-		print(p[1], p[3])
 		p[0] = kbo.Func(p[1], *p[3])
 
 def p_termlist(p):
