@@ -2,6 +2,7 @@ import setup
 import heapq
 import producers
 import consumers
+from bs4 import BeautifulSoup
 
 #------------------------------------------------------------------------------
 # primary algorithm, used as iterator
@@ -29,8 +30,15 @@ def explore_frontier(sig, data_type, metric, max_size, normalizer):
 # now we treat this module as a script - time to execute!
 #------------------------------------------------------------------------------
 if __name__ == '__main__':
-	signature, normalizer, module = producers.generate_resources(setup.SIG_PATH, None)
-	*data_types, data, metric = producers.parse_data(setup.DATA_PATH)
+	soup = BeautifulSoup(open(setup.DATA_PATH, 'r'), 'html.parser')
+	signature, module = producers.generate_resources(setup.SIG_PATH)
+	data_types = producers.parse_data_types(soup)
+	data = producers.parse_examples(soup)
+	metric = producers.parse_metric(soup)
+	if setup.NORM_FLAG:
+		normalizer = producers.parse_normalizer(soup)
+	else:
+		normalizer = None
 
 	if setup.VERBOSE_FLAG: print("Data loaded. Creating consumers and producers...")
 
@@ -52,7 +60,7 @@ if __name__ == '__main__':
 	if setup.VERBOSE_FLAG: print("Production started. Iterating solutions...")
 
 	# we're iterating through solutions from q until we find one that works
-	for program in consumers.generate_search(data_types, producer, sketches):
+	for i, program in enumerate(consumers.generate_search(data_types, producer, sketches)):
 		for ex_input, ex_output in data:
 			try:
 				output = program(ex_input, writer)
@@ -69,5 +77,6 @@ if __name__ == '__main__':
 			elif not program.csg_check(ex_input, writer):
 				break
 		else:
+			print("Found solution after {} steps".format(i))
 			print(repr(program))
 			break

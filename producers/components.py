@@ -62,7 +62,7 @@ class Component(object):
     def __repr__(self):
         return str(self)
 
-def generate_resources(sig, rules = None):
+def generate_resources(sig):
     if hasattr(generate_resources, "output"):
         return getattr(generate_resources, "output")
     module = machinery.SourceFileLoader('signature', sig).load_module()
