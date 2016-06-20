@@ -39,56 +39,35 @@ if __name__ == '__main__':
 		data_types = data_types[:2]
 	# construct producers from frontier search above
 	producer = lambda t: explore_frontier(signature, t, metric, setup.FRONTIER_SIZE, normalizer)
-	# create managers to hold all the producers/consumers
-	manager = consumers.ProductionManager(producer)
 	# consumers need to be able to execute the programs generated - make a writer
 	writer = producers.CodeWriter(module)
 	# create all the consumers!
-	manager.create_consumer(consumers.Sketch(data_types, False, False))
-	manager.create_consumer(consumers.Sketch(data_types, True, False))
-	manager.create_consumer(consumers.Sketch(data_types, False, True))
-	manager.create_consumer(consumers.Sketch(data_types, True, True))
-	# start churning out those solutions!
-	q = manager.start_production()
+	sketches = [
+		consumers.Sketch(data_types, False, False),
+		consumers.Sketch(data_types, False, True),
+		consumers.Sketch(data_types, True, False),
+		consumers.Sketch(data_types, True, True)
+	]
 
 	if setup.VERBOSE_FLAG: print("Production started. Iterating solutions...")
 
 	# we're iterating through solutions from q until we find one that works
-	done = False
-	counter = 0
-	while not done:
-		program = q.get()
-		counter += 1
-
-		if setup.VERBOSE_FLAG:
-			print("Considering program {}:\n{}".format(counter, repr(program)))
-
-		# let's see if it's consistent on examples
+	for program in consumers.generate_search(data_types, producer, sketches):
 		for ex_input, ex_output in data:
-			# we might break while running it, for whatever reason
 			try:
 				output = program(ex_input, writer)
-			except Exception as e:
-				if setup.VERBOSE_FLAG: print("\tRejected. Evaluation on examples crashed.")
+			except:
 				break
-			# if we're comparing lists, sort first
 			if isinstance(output, list) and isinstance(ex_output, list):
 				try:
 					if sorted(output) != sorted(ex_output):
-						if setup.VERBOSE_FLAG: print("\tRejected. Not consistent on examples.")
 						break
 				except:
 					pass
-			# otherwise just check for equality
 			elif output != ex_output:
-				if setup.VERBOSE_FLAG: print("\tRejected. Not consistent on examples.")
 				break
-			# and that our reducer is a csg
 			elif not program.csg_check(ex_input, writer):
-				if setup.VERBOSE_FLAG: print("\tRejected. Reducer not a CSG.")
 				break
-		# if no breaks reached - we've found a solution
 		else:
-			done = True
-
 			print(repr(program))
+			break
