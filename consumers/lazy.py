@@ -52,7 +52,7 @@ class LazyProduct(object):
 		heapq.heappush(self._frontier, (h_p, (i, cur_p)))
 		return cur
 
-def generate_search(data_types, prod_gen, sketches):
+def generate_search(prod_gen, sketches):
 	producers = {}
 	consumers = []
 	for sketch in sketches:

@@ -68,6 +68,9 @@ def parse_data_types(soup):
         key = None
     return input, output, key
 
+def parse_reducer_type(soup):
+    return soup.data.attrs['reducer']
+
 def parse_examples(soup):
     data = []
     for n in soup.data.findAll('example'):

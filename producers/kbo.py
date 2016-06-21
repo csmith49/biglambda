@@ -28,22 +28,32 @@ class Func(Pattern):
 # we better be matching
 #------------------------------------------------------------------------------
 def match(expr, pattern):
-	sub = Substitution()
+	constraints = {}
+	seen = set()
 	worklist = [(expr, pattern)]
 	while worklist:
 		e, p = worklist.pop()
-		e, p = e, sub(p)
 		if p[0] == "var":
-			sub[p] = e
+			if p[1] in seen:
+				if e != constraints[p[1]]:
+					return None
+			else:
+				constraints[p[1]] = e
+				seen.add(p[1])
 		elif e[1] == p[1]:
-			worklist += list(zip(e.children, p.children))
+			worklist += list(zip(e[-1], p[-1]))
 		else:
 			return None
-	return sub
+	return Substitution(constraints)
+
 
 class Substitution(object):
-	def __init__(self):
-		self._dict = {}
+	__slots__ = ('_dict', )
+	def __init__(self, d = None):
+		if d is not None:
+			self._dict = d
+		else:
+			self._dict = {}
 	def __call__(self, pattern):
 		if pattern[0] == "var":
 			try:
@@ -51,7 +61,7 @@ class Substitution(object):
 			except KeyError:
 				return pattern
 		else:
-			return pattern._replace(args=tuple(self(p) for p in pattern.children))
+			return pattern._replace(args=tuple(self(p) for p in pattern[-1]))
 	def __setitem__(self, key, value):
 		self._dict[key[1]] = value
 
@@ -70,7 +80,7 @@ class Rule(object):
 			sub = match(e, self.lhs)
 			if sub is not None:
 				return True
-			worklist += list(e.children)
+			worklist += list(e[-1])
 		return False
 	def _ordered_applies(self, expr):
 		worklist = [expr]
@@ -171,13 +181,26 @@ class Normalizer(object):
 	def __init__(self, rules, equations):
 		self.rules = rules
 		self.equations = equations
+		self._reduce_true = set()
+		self._reduce_false = set()
+	def root_reduce(self, e):
+		if e in self._reduce_true:
+			return True
+		elif e in self._reduce_false:
+			return False
+		else:
+			for rule in self.rules:
+				if rule.root_applies(e):
+					self._reduce_true.add(e)
+					return True
+			self._reduce_false.add(e)
+			return False
 	def __call__(self, expr):
 		worklist = [expr]
 		while worklist:
 			e = worklist.pop()
-			for rule in self.rules:
-				if rule.root_applies(e):
-					return False
+			if self.root_reduce(e):
+				return False
 			worklist += e.children
 		return True
 	def __repr__(self):

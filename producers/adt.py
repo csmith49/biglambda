@@ -72,20 +72,11 @@ class Node(namedtuple("_Node", "kind value args")):
             output += c._values_from_kind(kind)
         return output
 
-    def __eq__(self, other):
-        if not isinstance(other, Node):
-            return False
-        elif self.arity != other.arity:
-            return False
-        elif self.value != other.value:
-            return False
-        elif self.arity > 0:
-            return all(s == o for s, o in zip(self.args, other.args))
-        else:
-            return True
+
     def __reduce__(self):
         return Node, (self[0], self[1], self[2]), self.__dict__
-
+    def __hash__(self):
+        return super().__hash__()
 
 # Base pattern for traversing recursively defined nodes
 # uses introspection to select the right method

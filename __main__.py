@@ -32,35 +32,43 @@ def explore_frontier(sig, data_type, metric, max_size, normalizer):
 if __name__ == '__main__':
 	soup = BeautifulSoup(open(setup.DATA_PATH, 'r'), 'html.parser')
 	signature, module = producers.generate_resources(setup.SIG_PATH)
-	data_types = producers.parse_data_types(soup)
+	try:
+		data_types = producers.parse_data_types(soup)
+		# restructure data types a little (for keys and stuff, I think)
+		if data_types[2] is None:
+			data_types = data_types[:2]
+		sketches = [
+			consumers.Sketch(data_types, False, False),
+			consumers.Sketch(data_types, False, True),
+			consumers.Sketch(data_types, True, False),
+			consumers.Sketch(data_types, True, True)
+		]
+	except:
+		data_type = producers.parse_reducer_type(soup)
+		sketches = [consumers.ReducerSketch(data_type)]
 	data = producers.parse_examples(soup)
 	metric = producers.parse_metric(soup)
 	if setup.NORM_FLAG:
-		normalizer = producers.parse_normalizer(soup)
+		try:
+			normalizer = producers.parse_normalizer(soup)
+		except:
+			print("No normalizer. Continuing without...")
 	else:
 		normalizer = None
 
 	if setup.VERBOSE_FLAG: print("Data loaded. Creating consumers and producers...")
 
-	# restructure data types a little (for keys and stuff, I think)
-	if data_types[2] is None:
-		data_types = data_types[:2]
 	# construct producers from frontier search above
 	producer = lambda t: explore_frontier(signature, t, metric, setup.FRONTIER_SIZE, normalizer)
 	# consumers need to be able to execute the programs generated - make a writer
 	writer = producers.CodeWriter(module)
 	# create all the consumers!
-	sketches = [
-		consumers.Sketch(data_types, False, False),
-		consumers.Sketch(data_types, False, True),
-		consumers.Sketch(data_types, True, False),
-		consumers.Sketch(data_types, True, True)
-	]
 
 	if setup.VERBOSE_FLAG: print("Production started. Iterating solutions...")
 
 	# we're iterating through solutions from q until we find one that works
-	for i, program in enumerate(consumers.generate_search(data_types, producer, sketches)):
+	for i, program in enumerate(consumers.generate_search(producer, sketches)):
+		if setup.VERBOSE_FLAG: print("Visiting {}:\n{}".format(i, repr(program)))
 		for ex_input, ex_output in data:
 			try:
 				output = program(ex_input, writer)

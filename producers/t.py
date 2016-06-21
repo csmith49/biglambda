@@ -84,7 +84,7 @@ class TypeSubstitution:
             except KeyError:
                 return node
         else:
-            return node._replace(args=list(map(self.visit, node[2])))
+            return node._replace(args=tuple(map(self.visit, node[2])))
     def __repr__(self):
         return repr(self._sub)
 

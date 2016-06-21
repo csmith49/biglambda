@@ -33,9 +33,9 @@ class FilledSketch(object):
     def __repr__(self):
         # output = "filled sketch: {n}\n    mapper: {m}\n    reducer: {r}\n    flags: {f}"
         output = "{m}:{r}:{f}"
-        return output.format(n='test', 
-                m=repr(self._m), 
-                r=repr(self._r), 
+        return output.format(n='test',
+                m=repr(self._m),
+                r=repr(self._r),
                 f=repr( (self._a, self._flattened, self._keyed) ))
     def _execute(self, li, writer):
         m = writer(self._m)
@@ -120,3 +120,36 @@ class Sketch(object):
         m, r = args[0], args[1]
         a = args[2] if len(args) > 2 else None
         return FilledSketch(m, r, a, self.flattened, self.keyed)
+
+class ReducerSketch(object):
+    def __init__(self, type):
+        self.requirement = "{} -> {} -> {}".format(type)
+    @property
+    def reqs(self):
+        return [self.requirement]
+    def __call__(self, *args):
+        r = args[0]
+        return FilledReducerSketch(r)
+
+class FilledReducerSketch(object):
+    def __init__(self, r):
+        self._r = r
+    def _execute(self, li, writer):
+        r = uncurry(writer(self._r))
+        return reduce(r, li)
+    def __call__(self, li, writer):
+        return self._execute(li, writer)
+    def csg_check(self, li, writer):
+        r = uncurry(writer(self._r))
+        last_seen = None
+        for sli in itertools.permutations(li):
+            val = reduce(r, sli)
+            if last_seen is not None:
+                if last_seen != val:
+                    return False
+            last_seen = val
+        return True
+    def size(self):
+        return len(e.linearize(self._r))
+    def __repr__(self):
+        return "REDUCER: {}".format(repr(self._r))
