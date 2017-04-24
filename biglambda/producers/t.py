@@ -22,7 +22,7 @@ class Base(Type):
     def __new__(cls, name):
         return super().__new__(cls, "base", name, ())
     def __repr__(self):
-        return self.value 
+        return self.value
     def __reduce__(self):
         return Base, (self.value,)
 
@@ -135,9 +135,3 @@ def fresh_wrt(expr, s):
         base += 1
     fresh_vars = [Var(i) for i in fresh_list]
     return TypeSubstitution({k : v for k, v in zip(vals, fresh_vars)})
-
-if __name__ == '__main__':
-    test = Func(List(Pair(Base("int"), Var(1))), Var(1))
-    print(test)
-    s = TypeSubstitution({1 : List(Base("str"))})
-    print(s.visit(test))

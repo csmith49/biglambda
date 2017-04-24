@@ -1,4 +1,3 @@
-from pprint import pprint
 from . import e
 from . import t
 from itertools import chain

@@ -121,11 +121,3 @@ def fix_types(node, sub):
     else:
         kids = [fix_types(c, sub) for c in node.args]
         return node._replace(args=tuple(kids))
-
-if __name__ == '__main__':
-    test = Abs(None, App(Var(1, None), Un(None)))
-    print(test)
-    print()
-    print(reconstruct(linearize(test)))
-    print()
-    print(linearize(test))

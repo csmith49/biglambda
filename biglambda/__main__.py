@@ -86,6 +86,5 @@ if __name__ == '__main__':
 			elif not program.csg_check(ex_input, writer):
 				break
 		else:
-			print("Found solution after {} steps".format(i))
 			print(repr(program))
 			break
