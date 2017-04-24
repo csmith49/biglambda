@@ -3,7 +3,7 @@ from . import e
 from . import t
 from itertools import chain
 
-def generate_expander(signature, normalizer = None):
+def generate_expander(signature):
     reduced_sig = [(c.type, c.term_repr, c.return_type) for c in signature]
     def get_expansions(type, bindings, tvars):
         output = []
@@ -54,12 +54,9 @@ def generate_expander(signature, normalizer = None):
         output = []
         for e_expr, e_sub in expansions:
             new_expr = e.reconstruct(list(chain(linearized[:index], e.linearize(e_expr), linearized[index+1:])))
-            if (normalizer is None) or (normalizer(new_expr)):
-                if e_sub is None:
-                    output.append(new_expr)
-                else:
-                    output.append(e.fix_types(new_expr, e_sub))
+            if e_sub is None:
+                output.append(new_expr)
             else:
-                pass
+                output.append(e.fix_types(new_expr, e_sub))
         return output
     return expand

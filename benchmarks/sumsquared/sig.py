@@ -14,6 +14,10 @@ def add(x : "Int", y : "Int") -> "Int":
     '''a0 + a1'''
     return x + y
 
+def mult(x : "Int", y : "Int") -> "Int":
+    '''a0 * a1'''
+    return x * y
+
 def fadd(x : "Float", y : "Float") -> "Float":
     '''a0 + a1'''
     return x + y

@@ -64,7 +64,7 @@ def linearize(expr):
         visited.append((node[0], node[1], len(node[2]), ()))
         # visit some kids
         expr_stack.extend(reversed(node[2]))
-    return visited 
+    return visited
 
 def linearize_w_tvars(expr):
     visited, stack = [], [(expr, [])]
@@ -117,10 +117,10 @@ def fix_types(node, sub):
         return Un(val[0], sub.visit(val[1]))
     elif kind == "abs":
         kids = [fix_types(c, sub) for c in node.args]
-        return node._replace(value=sub.visit(val), args=kids)
+        return node._replace(value=sub.visit(val), args=tuple(kids))
     else:
         kids = [fix_types(c, sub) for c in node.args]
-        return node._replace(args=kids)
+        return node._replace(args=tuple(kids))
 
 if __name__ == '__main__':
     test = Abs(None, App(Var(1, None), Un(None)))

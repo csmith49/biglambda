@@ -1,4 +1,5 @@
 from .adt import Node
+from .e import linearize
 
 #------------------------------------------------------------------------------
 # data types for rules
@@ -106,6 +107,16 @@ class Rule(object):
 		if sub is not None:
 			return True
 		return False
+	def ordered_root_applies(self, expr):
+		sub_l = match(expr, self.lhs)
+		if sub_l is not None:
+			if self.order(sub_l(self.lhs), sub_l(self.rhs)):
+				return True
+		sub_r = match(expr, self.rhs)
+		if sub_r is not None:
+			if self.order(sub_r(self.rhs), sub_r(self.lhs)):
+				return True
+		return False
 	def __repr__(self):
 		if self.order is not None:
 			return repr(self.lhs) + " == " + repr(self.rhs)
@@ -122,6 +133,7 @@ class Weight(object):
 		if term[0] == "var":
 			return term[1][0]
 		elif term[0] == "un":
+			return 1
 			return self._weights[0]
 		elif term[0] == "abs" or term[0] == "app":
 			out = self._weights[0] + 1
@@ -194,7 +206,11 @@ class Normalizer(object):
 					self._reduce_true.add(e)
 					return True
 			self._reduce_false.add(e)
-			return False
+			for eq in self.equations:
+				if eq.ordered_root_applies(e):
+					self._reduce_true.add(e)
+					return True
+		return False
 	def __call__(self, expr):
 		worklist = [expr]
 		while worklist:

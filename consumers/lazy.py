@@ -5,6 +5,7 @@ class LazyList(object):
 		self._generator = generator
 		self._history = []
 	def __getitem__(self, key):
+		print(len(self._history))
 		while key >= len(self._history):
 			self._history.append(next(self._generator))
 		return self._history[key]

@@ -10,3 +10,15 @@
         <output val=15>
     </example>
 </data>
+<trs>
+    <rules>
+        add(zero, 1) -> 1
+        add(1, zero) -> 1
+        add(add(1, 2), 3) -> add(1, add(2, 3))
+        square(zero) -> zero
+        fadd(zero, 1) -> 1
+        fadd(1, zero) -> 1
+        fadd(fadd(1, 2), 3) -> fadd(1, fadd(2, 3))
+        round(cast(1)) -> 1
+    </rules>
+</trs>

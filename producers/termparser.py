@@ -5,7 +5,7 @@ import ply.lex as lex
 tokens = ["BASE", "VAR", "COMMA", "TO", "OPEN", "CLOSE", "EQ"]
 
 t_ignore = ' \t'
-t_BASE = r'[a-z]+'
+t_BASE = r'[a-zA-Z]+'
 t_VAR = r'[0-9]+'
 t_COMMA = r','
 t_TO = r'->'

@@ -123,7 +123,7 @@ class Sketch(object):
 
 class ReducerSketch(object):
     def __init__(self, type):
-        self.requirement = "{} -> {} -> {}".format(type)
+        self.requirement = "{t} -> {t} -> {t}".format(t=type)
     @property
     def reqs(self):
         return [self.requirement]
@@ -133,7 +133,7 @@ class ReducerSketch(object):
 
 class FilledReducerSketch(object):
     def __init__(self, r):
-        self._r = r
+        self._r = r[-1]
     def _execute(self, li, writer):
         r = uncurry(writer(self._r))
         return reduce(r, li)

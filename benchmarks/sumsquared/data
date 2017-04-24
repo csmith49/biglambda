@@ -1,6 +1,4 @@
 <data input="Int" output="Int">
-    <norm name="add" tag="ac">
-    <norm name="fadd" tag="ac">
     <example>
         <input delim=","> 1, 2, 3 </input>
         <output val=36 />
@@ -14,3 +12,29 @@
         <output val=144 />
     </example>
 </data>
+<trs>
+    <rules>
+        add(zero, 1) -> 1
+        add(1, zero) -> 1
+        add(add(1, 2), 3) -> add(1, add(2, 3))
+        square(zero) -> zero
+        fadd(cast(zero), 1) -> 1
+        fadd(1, cast(zero)) -> 1
+        fadd(fadd(1, 2), 3) -> fadd(1, fadd(2, 3))
+        round(cast(1)) -> 1
+        div(cast(zero), 1) -> cast(zero)
+        mult(zero, 1) -> zero
+        mult(1, zero) -> zero
+        add(mult(1, 2), mult(1, 3)) -> mult(1, add(2, 3))
+        mult(mult(1, 2), 3) -> mult(1, mult(2, 3))
+        mult(succ(zero), 1) -> 1
+        mult(1, succ(zero)) -> 1
+    </rules>
+    <eqs>
+        add(1, 2) == add(2, 1)
+        mult(1, 2) == mult(2, 1)
+        add(1, add(2, 3)) == add(3, add(1, 2))
+        fadd(1, 2) == fadd(2, 1)
+        fadd(1, fadd(2, 3)) == fadd(3, fadd(1, 2))
+    </eqs>
+</trs>

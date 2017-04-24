@@ -11,7 +11,7 @@ class ParseError(Exception):
     def __repr__(self):
         return repr(self._message)
 
-DEFAULT_METRIC = {"fst": 0.01, "snd": 0.01, "emit": 0.01, "lower": 0.01}
+DEFAULT_METRIC = {"fst": 0.1, "snd": 0.1, "emit": 0.1, "lower": 0.1}
 
 # linear metric on expressions
 # maintains a counter, and outputs (m, count) to break ties
@@ -33,9 +33,9 @@ class Metric:
             current = stack.pop()
             if current[0] == "un" and base:
                 if repr(current[1][1]) in base:
-                    total += 1
+                    total += 10
                 else:
-                    total += 1
+                    total += 100
             else:
                 total += 1 / w[str(current[1])]
             stack.extend(current[2])
@@ -104,8 +104,7 @@ def parse_normalizer(soup):
     rules = list(map(parse_term, unescaped_split(soup.trs.rules.string, get_delim(soup.trs.rules))))
     rules = list(map(lambda p: kbo.Rule(*p), rules))
     # convert equations into eq objects
-#    equations = list(map(parse_term, unescaped_split(soup.trs.eqs.string, get_delim(soup.trs.eqs.output))))
-#    equations = list(map(lambda p: kbo.Rule(*p, order), equations))
-    equations = []
+    equations = list(map(parse_term, unescaped_split(soup.trs.eqs.string, get_delim(soup.trs.eqs))))
+    equations = list(map(lambda p: kbo.Rule(*p, order), equations))
     # now construct the normalizer
     return kbo.Normalizer(rules, equations)
