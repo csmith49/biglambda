@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 #------------------------------------------------------------------------------
 # primary algorithm, used as iterator
 #------------------------------------------------------------------------------
-def explore_frontier(sig, data_type, metric, max_size, normalizer):
+def explore_frontier(sig, data_type, metric, max_size):
 	# closure for binding sig and rules easily
 	expand = producers.generate_expander(sig)
 	# generate appropriate starting node based on type
@@ -18,17 +18,11 @@ def explore_frontier(sig, data_type, metric, max_size, normalizer):
 	while True:
 		# pull expression off heap, check expansions
 		m, expr = heapq.heappop(frontier)
-
-		#if setup.VERBOSE_FLAG: print("\tExpanding {}...".format(expr))
-
 		expansions = expand(expr)
 		# if there are expansions, just add them back in
 		if expansions:
 			for new_expr in expansions:
-				if (normalizer is None):
-					heapq.heappush(frontier, (metric(new_expr), new_expr) )
-				elif normalizer(new_expr):
-					heapq.heappush(frontier, (metric(new_expr), new_expr) )
+				heapq.heappush(frontier, (metric(new_expr), new_expr) )
 		# if there aren't any expansions and the program is closed, we're done
 		elif len(expr._values_from_kind("un")) == 0:
 			yield m[0], expr
@@ -39,21 +33,13 @@ def explore_frontier(sig, data_type, metric, max_size, normalizer):
 if __name__ == '__main__':
 	soup = BeautifulSoup(open(setup.DATA_PATH, 'r'), 'html.parser')
 	signature, module = producers.generate_resources(setup.SIG_PATH)
-	if setup.NORM_FLAG:
-		try:
-			normalizer = producers.parse_normalizer(soup)
-		except:
-			print("No normalizer. Continuing without...")
-			normalizer = None
-	else:
-		normalizer = None
-	data = producers.parse_examples(soup)
-	metric = producers.parse_metric(soup)
 
 	data = producers.parse_examples(soup)
 	metric = producers.parse_metric(soup)
-	producer = lambda t: explore_frontier(signature, t, metric, setup.FRONTIER_SIZE, normalizer)
+	data = producers.parse_examples(soup)
+	metric = producers.parse_metric(soup)
 
+	producer = lambda t: explore_frontier(signature, t, metric, setup.FRONTIER_SIZE)
 
 	try:
 		data_types = producers.parse_data_types(soup)

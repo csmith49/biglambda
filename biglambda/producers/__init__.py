@@ -2,7 +2,7 @@ from .components import generate_resources, parse_type
 from .adt import ExtendedVisitor
 from . import e
 from . import t
-from .data import parse_data_types, parse_examples, parse_metric, parse_normalizer, parse_reducer_type
+from .data import parse_data_types, parse_examples, parse_metric, parse_reducer_type
 from .expansion import generate_expander
 from .checker import reducer_check
 from itertools import chain

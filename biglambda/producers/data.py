@@ -1,8 +1,6 @@
 from bs4 import BeautifulSoup
 from collections import defaultdict
 from functools import partial
-from . import kbo
-from .termparser import parse_term
 
 # simple exception class for parsing issues
 class ParseError(Exception):
@@ -88,23 +86,3 @@ def parse_metric(soup):
     for n in soup.data.findAll('weight'):
         weights[n.attrs['name']] = float(n.attrs['val'])
     return Metric(weights)
-
-def parse_normalizer(soup):
-    weights = {}
-    precedences = {}
-    for n in soup.trs.findAll('weight'):
-        weights[n.attrs['name']] = float(n.attrs['val'])
-    for n in soup.trs.findAll('precedence'):
-        precedences[n.attrs['name']] = float(n.attrs['val'])
-    # create whatever order we may have
-    W = kbo.Weight(weights)
-    P = kbo.Precedence(precedences)
-    order = partial(kbo.gt_kbo, W=W, P=P)
-    # convert rules into rule objects
-    rules = list(map(parse_term, unescaped_split(soup.trs.rules.string, get_delim(soup.trs.rules))))
-    rules = list(map(lambda p: kbo.Rule(*p), rules))
-    # convert equations into eq objects
-    equations = list(map(parse_term, unescaped_split(soup.trs.eqs.string, get_delim(soup.trs.eqs))))
-    equations = list(map(lambda p: kbo.Rule(*p, order), equations))
-    # now construct the normalizer
-    return kbo.Normalizer(rules, equations)
