@@ -1,7 +1,7 @@
 <data input="Review" key="String" output="Int">
-    <weight name="hasAttr" val=10>
-    <weight name="goodForKids" val=10>
-    <weight name="bool_to_int" val=10>
+    <weight name="hasAttr" val="10" />
+    <weight name="goodForKids" val="10" />
+    <weight name="bool_to_int" val="10" />
     <example>
         <input>
             ("Madison", "WI", "eh", 4, {})

@@ -1,6 +1,6 @@
 <data input="String" output="[String]">
-    <norm name="append" tag="assoc">
-    <weight name="extract" val=100>
+    <norm name="append" tag="assoc" />
+    <weight name="extract" val="100" />
     <example>
         <input>
             "There will be a meeting at DATE01, and maybe DATE02"

@@ -1,14 +1,14 @@
 <data input="Int" output="Int">
     <example>
         <input delim=",">1,2,3,4</input>
-        <output val=1>
+        <output val="1" />
     </example>
     <example>
         <input delim=",">4,3,1,2</input>
-        <output val=1>
+        <output val="1" />
     </example>
     <example>
         <input delim=",">100, 200, 201, 101, 99</input>
-        <output val=99>
+        <output val="99" />
     </example>
 </data>

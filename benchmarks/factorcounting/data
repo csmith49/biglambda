@@ -1,7 +1,7 @@
 <data input="Int" output="Int" key="Int">
-    <norm name="plus" tag="ac">
-    <weight name="factor" val=10>
-    <weight name="emit" val=0.01>
+    <norm name="plus" tag="ac" />
+    <weight name="factor" val="10" />
+    <weight name="emit" val="0.01" />
     <example>
         <input delim=","> 2, 3, 4 </input>
         <output>

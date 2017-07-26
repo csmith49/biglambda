@@ -1,6 +1,6 @@
 <data input="Int" key="Int" output="[Int]">
-    <norm name="append" tag="ac">
-    <weight name="map_reduce_keyed_map" val=1000>
+    <norm name="append" tag="ac" />
+    <weight name="map_reduce_keyed_map" val="1000" />
     <example>
         <input delim=","> 1, 1, 2, 3 </input>
         <output delim=","> 1, 2, 3 </output>

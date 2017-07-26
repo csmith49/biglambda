@@ -1,13 +1,13 @@
 <data input="Int" output="Int">
-    <weight name="add" val="100">
-    <norm name="add" tag="ac">
+    <weight name="add" val="100" />
+    <norm name="add" tag="ac" />
     <example>
         <input delim=",">1,2,3</input>
-        <output val=6>
+        <output val="6"/>
     </example>
     <example>
         <input delim=",">4,5,6</input>
-        <output val=15>
+        <output val="15"/>
     </example>
 </data>
 <trs>

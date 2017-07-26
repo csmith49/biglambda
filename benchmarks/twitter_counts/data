@@ -1,7 +1,7 @@
 <data input="String" output="Int" key="String">
-    <weight name="find_matches" val=100>
-    <weight name="fst" val=0.0001>
-    <weight name="snd" val=0.0001>
+    <weight name="find_matches" val="100" />
+    <weight name="fst" val="0.0001" />
+    <weight name="snd" val="0.0001" />
     <example>
         <input>
             "retweet #foo #bar"

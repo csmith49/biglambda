@@ -1,10 +1,10 @@
 <data input="Float" output="Int">
     <example>
         <input delim=","> 1.3, 2.1, 3.2 </input>
-        <output val=6 />
+        <output val="6" />
     </example>
     <example>
         <input delim=","> 1.0, 2.1, 5.3 </input>
-        <output val=8 />
+        <output val="8" />
     </example>
 </data>

@@ -1,8 +1,8 @@
 <data input="Record" key="Int" output="Int">
-    <weight name="fst" val=0.0001>
-    <weight name="snd" val=0.0001>
-    <weight name="emit" val=0.0001>
-    <weight name="one" val=0.1>
+    <weight name="fst" val="0.0001" />
+    <weight name="snd" val="0.0001" />
+    <weight name="emit" val="0.0001" />
+    <weight name="one" val="0.1" />
     <example>
         <input>
             (212956, 218, 79, 6.991)
