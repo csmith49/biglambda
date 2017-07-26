@@ -1,7 +1,7 @@
 <data input="String" key="String" output="Int">
-    <weight name="fst" val=0.0001>
-    <weight name="snd" val=0.0001>
-    <weight name="add" val=0.5>
+    <weight name="fst" val="0.0001" />
+    <weight name="snd" val="0.0001" />
+    <weight name="add" val="0.5" />
     <example>
         <input>
             "HELENA	What is your pleasure, madam?"

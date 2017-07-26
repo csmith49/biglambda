@@ -1,15 +1,15 @@
 <data input="Int" output="Int">
     <example>
         <input delim=","> 1, 2, 3 </input>
-        <output val=36 />
+        <output val="36" />
     </example>
     <example>
         <input delim=","> 0, 2 </input>
-        <output val=4 />
+        <output val="4" />
     </example>
     <example>
         <input delim=","> 7, 0, 5 </input>
-        <output val=144 />
+        <output val="144" />
     </example>
 </data>
 <trs>

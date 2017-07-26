@@ -1,9 +1,9 @@
 <data input="String" output="[(String, String)]">
-    <weight name="canonical" val=100>
-    <weight name="filt" val=100>
-    <weight name="perms" val=100>
-    <weight name="fst" val=0.001>
-    <weight name="snd" val=0.001>
+    <weight name="canonical" val="100" />
+    <weight name="filt" val="100" />
+    <weight name="perms" val="100" />
+    <weight name="fst" val="0.001" />
+    <weight name="snd" val="0.001" />
     <example>
         <input>
             "testing #foo #bar"

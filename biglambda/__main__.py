@@ -3,6 +3,7 @@ import setup
 import heapq
 import producers
 import consumers
+import lxml
 from bs4 import BeautifulSoup
 
 #------------------------------------------------------------------------------
@@ -31,7 +32,7 @@ def explore_frontier(sig, data_type, metric, max_size):
 # now we treat this module as a script - time to execute!
 #------------------------------------------------------------------------------
 if __name__ == '__main__':
-	soup = BeautifulSoup(open(setup.DATA_PATH, 'r'), 'html.parser')
+	soup = BeautifulSoup(open(setup.DATA_PATH, 'r'), 'lxml-xml')
 	signature, module = producers.generate_resources(setup.SIG_PATH)
 
 	data = producers.parse_examples(soup)

@@ -1,8 +1,8 @@
 <data input="Database" key="String" output="[Item]">
-    <weight name="access" val=10>
-    <weight name="filt" val=0.01>
-    <weight name="concat_db" val=0.01>
-    <weight name="VALUE" val=0.01>
+    <weight name="access" val="10" />
+    <weight name="filt" val="0.01" />
+    <weight name="concat_db" val="0.01" />
+    <weight name="VALUE" val="0.01" />
     <example>
         <input>
             ("DB0", [("K0", "V0"), ("K2", "V2")])

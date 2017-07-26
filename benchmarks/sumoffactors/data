@@ -1,12 +1,12 @@
 <data input="Int" output="Int">
-    <norm name="plus" tag="ac">
-    <weight name="map_reduce_emit" val=100>
+    <norm name="plus" tag="ac" />
+    <weight name="map_reduce_emit" val="100" />
     <example>
         <input delim=","> 2, 3, 4 </input>
-        <output val=7 />
+        <output val="7" />
     </example>
     <example>
         <input delim=","> 5, 6, 35, 16 </input>
-        <output val=24 />
+        <output val="24" />
     </example>
 </data>

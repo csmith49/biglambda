@@ -1,5 +1,5 @@
 <data input="String" output="[String]">
-    <weight name="core_filter" val=100>
+    <weight name="core_filter" val="100" />
     <example>
         <input delim=","> "That dog there", "what a human cat" </input>
         <output delim=","> "dog", "human", "cat" </output>

@@ -1,5 +1,5 @@
 biglambda/producers/parser.out
 biglambda/producers/typetab.py
-biglambda/producers/__pycache__
-biglambda/consumers/__pycache__
-biglambda/__pycache__
+__pycache__
+.python-version
+setup.pyc

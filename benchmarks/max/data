@@ -1,17 +1,17 @@
 <data input="Int" output="Int">
-    <norm name="splus" tag="ac">
-    <norm name="smin" tag="comm">
-    <norm name="smax" tag="comm">
+    <norm name="splus" tag="ac"></norm>
+    <norm name="smin" tag="comm"></norm>
+    <norm name="smax" tag="comm"></norm>
     <example>
         <input delim=",">1,2,3,4</input>
-        <output val=4>
+        <output val="4"/>
     </example>
     <example>
         <input delim=",">4,3,1,2</input>
-        <output val=4>
+        <output val="4"/>
     </example>
     <example>
         <input delim=",">100, 200, 201, 101, 99</input>
-        <output val=201>
+        <output val="201"/>
     </example>
 </data>

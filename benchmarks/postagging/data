@@ -1,5 +1,5 @@
 <data input="String" output="Int" key="Tag">
-    <norm name="plus" tag="ac">
+    <norm name="plus" tag="ac" />
     <example>
         <input delim=","> "This is a test", "fluffy cat play" </input>
         <output>

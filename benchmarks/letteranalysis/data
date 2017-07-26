@@ -1,7 +1,7 @@
 <data input="String" output="Int" key="String">
-    <norm name="add" tag="ac">
-    <norm name="lower" tag="idem">
-    <weight name="lower" val=10>
+    <norm name="add" tag="ac" />
+    <norm name="lower" tag="idem" />
+    <weight name="lower" val="10" />
     <example>
         <input delim=","> "Aaa", "bb", "c" </input>
         <output>
